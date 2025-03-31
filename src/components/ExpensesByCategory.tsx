@@ -19,7 +19,7 @@ export default function ExpensesByCategory({ }: Props) {
                     <div key={index}>
                         <div className="flex justify-between py-2 border-b">
                             <h2 className="text-xl font-bold">{obj.category}</h2>
-                            <span className="text-xl">{obj.price}</span>
+                            <span className="text-xl">₪{obj.price}</span>
                         </div>
                     </div>
                 ))}

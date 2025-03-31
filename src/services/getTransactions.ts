@@ -121,8 +121,12 @@ export interface CategorySummary {
  * @returns 
  */
 export function getTotalPriceOfTransactions(tList: Transaction[]): { category: string; price: number }[] {
+
+    // Get only expenses from array of all transactions
+    const newList: Transaction[] = tList.filter(o => o.transactiontype == TransactionType.expense)
+
     // Step 1: Reduce transactions into category summaries
-    const categorySummary: CategorySummary = tList.reduce((acc: CategorySummary, item: Transaction) => {
+    const categorySummary: CategorySummary = newList.reduce((acc: CategorySummary, item: Transaction) => {
         // If category exists, add to its price, otherwise create new entry
         acc[item.category] = acc[item.category]
             ? {
@@ -142,3 +146,36 @@ export function getTotalPriceOfTransactions(tList: Transaction[]): { category: s
 }
 const categorySummary = getTotalPriceOfTransactions(tList)
 console.log(categorySummary);
+
+
+
+export interface TransactionsTypeSummary {
+    [transactiontype: string]: {
+        transactiontype: TransactionType;
+        price: number;
+    };
+}
+
+
+export function getTotalPriceOfTransactionsType(tList: Transaction[]): { transactiontype: TransactionType; price: number }[] {
+    // Step 1: Reduce transactions into category summaries
+    const transactionsTypeSummary: TransactionsTypeSummary = tList.reduce((acc: TransactionsTypeSummary, item: Transaction) => {
+
+        acc[item.transactiontype] = acc[item.transactiontype]
+            ? {
+                transactiontype: item.transactiontype,
+                price: item.price + acc[item.transactiontype].price
+            }
+            : {
+                transactiontype: item.transactiontype,
+                price: item.price
+            };
+
+        return acc;
+    }, {});
+
+    const result = Object.values(transactionsTypeSummary);
+    return result;
+}
+const transactionsTypeSummary = getTotalPriceOfTransactionsType(tList)
+console.log(transactionsTypeSummary);

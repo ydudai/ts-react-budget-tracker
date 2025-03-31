@@ -6,7 +6,7 @@ type Props = {
 }
 
 
-export default function TransactionComponent({transaction}: Props) {
+export default function TransactionComponent({ transaction }: Props) {
     return (
         <div
             // key={transaction.id}
@@ -19,7 +19,7 @@ export default function TransactionComponent({transaction}: Props) {
             </div>
             <div className="flex items-center">
                 <span className="mr-4 font-semibold text-lg">
-                    {transaction.price}₪
+                    ₪{transaction.price}
                 </span>
                 <div className="flex space-x-2">
                     <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors">
