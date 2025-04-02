@@ -1,14 +1,9 @@
-import React, { useState } from 'react'
 import { useAppContext } from '../AppContext';
-import { CategorySummary, getTotalPriceOfTransactions } from '../services/getTransactions'
 
 type Props = {}
 
 export default function ExpensesByCategory({ }: Props) {
-    const { tranactionList, setTranactionList } = useAppContext();
-
-    const cSummary: { category: string; price: number; }[] = getTotalPriceOfTransactions(tranactionList)
-    const [categorySummary, setCategorySummary] = useState(cSummary);
+    const { categorySummary } = useAppContext();
 
     return (
         <div className='flex-row justify-items-start'>

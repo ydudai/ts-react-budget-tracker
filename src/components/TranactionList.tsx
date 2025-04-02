@@ -1,14 +1,11 @@
-import React, { useContext } from 'react'
-import { Transaction } from '../types/Transaction'
 import TransactionComponent from './TransactionComponent';
 import { useAppContext } from '../AppContext'
 
 type Props = {}
 
-
 export default function TranactionList({ }: Props) {
 
-    const { tranactionList, setTranactionList } = useAppContext();
+    const { tranactionList } = useAppContext();
 
     return (
         <div className='flex-row justify-items-start' >

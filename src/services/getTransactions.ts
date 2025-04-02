@@ -122,6 +122,8 @@ export interface CategorySummary {
  */
 export function getTotalPriceOfTransactions(tList: Transaction[]): { category: string; price: number }[] {
 
+    console.log(tList)
+    
     // Get only expenses from array of all transactions
     const newList: Transaction[] = tList.filter(o => o.transactiontype == TransactionType.expense)
 
@@ -144,8 +146,8 @@ export function getTotalPriceOfTransactions(tList: Transaction[]): { category: s
     const result = Object.values(categorySummary);
     return result;
 }
-const categorySummary = getTotalPriceOfTransactions(tList)
-console.log(categorySummary);
+// const categorySummary = getTotalPriceOfTransactions(tList)
+// console.log(categorySummary);
 
 
 
@@ -177,5 +179,15 @@ export function getTotalPriceOfTransactionsType(tList: Transaction[]): { transac
     const result = Object.values(transactionsTypeSummary);
     return result;
 }
-const transactionsTypeSummary = getTotalPriceOfTransactionsType(tList)
-console.log(transactionsTypeSummary);
+// const transactionsTypeSummary = getTotalPriceOfTransactionsType(tList)
+// console.log(transactionsTypeSummary);
+
+
+export function getSortedTransactionList() : Transaction[] {
+    const transList: Transaction[] = getTransactionList();
+
+    transList.sort((a, b) => b.id - a.id);
+    return transList;
+}
+let sortedTransList: Transaction[] = getSortedTransactionList()
+console.log( sortedTransList[0].id);
