@@ -5,8 +5,8 @@ import { TransactionType } from "./types/TransactionType";
 
 // Define a type for context value
 type AppContextType = {
-    tranactionList: Transaction[];
-    setTranactionList: Dispatch<SetStateAction<Transaction[]>>;
+    transactionList: Transaction[];
+    setTransactionList: Dispatch<SetStateAction<Transaction[]>>;
     typeSummary: { transactiontype: TransactionType; price: number; }[];
     setTypeSummary: Dispatch<SetStateAction<{ transactiontype: TransactionType; price: number; }[]>>;
     categorySummary: { category: string; price: number; }[];
@@ -20,7 +20,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     let tSummary: { transactiontype: TransactionType; price: number; }[] = []
     let cSummary:{ category: string; price: number; }[] = []
 
-    const [tranactionList, setTranactionList] = useState(tList)
+    const [transactionList, setTransactionList] = useState(tList)
     const [typeSummary, setTypeSummary] = useState(tSummary);
     const [categorySummary, setCategorySummary] = useState(cSummary);
  
@@ -29,14 +29,14 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         tSummary = getTotalPriceOfTransactionsType(tList);
         cSummary = getTotalPriceOfTransactions(tList);  
         
-        setTranactionList(tList)
+        setTransactionList(tList)
         setTypeSummary(tSummary)
         setCategorySummary(cSummary)
     }, [])
 
 
     return (
-        <AppContext.Provider value={{ tranactionList, setTranactionList, typeSummary, setTypeSummary, categorySummary, setCategorySummary }}>
+        <AppContext.Provider value={{ transactionList, setTransactionList, typeSummary, setTypeSummary, categorySummary, setCategorySummary }}>
             {children}
         </AppContext.Provider>
     )

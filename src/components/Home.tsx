@@ -41,7 +41,7 @@ export default function Home({ }: Props) {
 
       {isAddTransactionVisible && <AddTransaction transactionAction={tranactionAction} transaction={transaction} setAddTransactionVisible={setAddTransactionVisible}></AddTransaction>}
 
-      <TranactionList setAddTransactionVisible={setAddTransactionVisible} setTranactionAction={setTranactionAction} setTransaction={setTransaction}></TranactionList>
+      <TranactionList setAddTransactionVisible={setAddTransactionVisible} setTransactionAction={setTranactionAction} setTransaction={setTransaction}></TranactionList>
       <ExpensesByCategory></ExpensesByCategory>
     </div>
   )

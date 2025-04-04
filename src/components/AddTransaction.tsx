@@ -43,7 +43,7 @@ export default function AddTransaction({ transactionAction, transaction, setAddT
         price: -1,
     }
 
-    const { tranactionList, setTranactionList } = useAppContext();
+    const { transactionList, setTransactionList } = useAppContext();
     const { setTypeSummary } = useAppContext()
     const { setCategorySummary } = useAppContext();
 
@@ -86,8 +86,8 @@ export default function AddTransaction({ transactionAction, transaction, setAddT
             price: price,
         }
 
-        const updatedList = [...tranactionList, newTranasaction];
-        setTranactionList(updatedList)
+        const updatedList = [...transactionList, newTranasaction];
+        setTransactionList(updatedList)
 
         let tSummary: { transactiontype: TransactionType; price: number; }[] = getTotalPriceOfTransactionsType(updatedList);
         setTypeSummary(tSummary)
@@ -116,7 +116,7 @@ export default function AddTransaction({ transactionAction, transaction, setAddT
             price: price,
         }
 
-        updateTransactionList(tranactionList, setTranactionList, updatedTranasaction)
+        updateTransactionList(transactionList, setTransactionList, updatedTranasaction)
 
      }
 

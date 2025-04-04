@@ -2,27 +2,50 @@ import { useState } from 'react'
 import { Transaction } from '../types/Transaction'
 import { TransactionType } from '../types/TransactionType'
 import AddTransaction from './AddTransaction'
+import { useAppContext } from '../AppContext'
+import { getTotalPriceOfTransactions, getTotalPriceOfTransactionsType } from '../services/getTransactions'
 
 type Props = {
-    setTranactionAction: Function
+    setTransactionAction: Function
     transaction: Transaction,
     setAddTransactionVisible: Function,
     setTransaction: Function
 }
 
 
-    setTransaction: Function
-export default function TransactionComponent({ setTranactionAction, transaction, setAddTransactionVisible, setTransaction }: Props) {
-   
-    const setTranactionActiontion = setTranactionAction
+export default function TransactionComponent({ setTransactionAction, transaction, setAddTransactionVisible, setTransaction }: Props) {
+
     const setAddTransactionComp = setAddTransactionVisible;
-        
+
+    const { transactionList, setTransactionList, setTypeSummary, setCategorySummary} = useAppContext();
+   
     function update() {
-        const thisTransaction = transaction
-        console.log(thisTransaction)
         setTransaction(transaction)
-        setTranactionActiontion("edit")
+        setTransactionAction("edit")
         setAddTransactionComp(true);
+    }
+
+    function deleteTransaction() {
+
+        const index = transactionList.findIndex(t => t.id === transaction.id);
+
+        if (index == -1) {
+            alert("Transaction " + transaction.title + " is not found")
+            return
+        }
+
+        const newArray = [
+            ...transactionList.slice(0, index), // Elements before the one to delete
+            ...transactionList.slice(index + 1) // Elements after the one to delete
+        ];
+        setTransactionList(newArray);
+
+        let tSummary: { transactiontype: TransactionType; price: number; }[] = getTotalPriceOfTransactionsType(newArray);
+        setTypeSummary(tSummary)
+
+        let cSummary: { category: string; price: number; }[] = getTotalPriceOfTransactions(newArray);
+        setCategorySummary(cSummary)
+
     }
 
     return (
@@ -43,7 +66,7 @@ export default function TransactionComponent({ setTranactionAction, transaction,
                     <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors" onClick={update}>
                         Edit
                     </button>
-                    <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors">
+                    <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors" onClick={deleteTransaction}>
                         Delete
                     </button>
                 </div>
