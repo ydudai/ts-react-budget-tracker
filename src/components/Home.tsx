@@ -3,14 +3,29 @@ import BudgetSummary from './BudgetSummary'
 import TranactionList from './TranactionList'
 import ExpensesByCategory from './ExpensesByCategory'
 import AddTransaction from './AddTransaction'
+import { Transaction } from '../types/Transaction'
+import { TransactionType } from '../types/TransactionType'
 
 type Props = {}
 
 export default function Home({ }: Props) {
 
+  const defTransaction: Transaction = {
+    id: -1,
+    transactiontype: TransactionType.income,
+    title: '',
+    category: '',
+    date: '',
+    price: -1,
+  }
+
+  const [transaction, setTransaction] = useState(defTransaction);
   const [isAddTransactionVisible, setAddTransactionVisible] = useState(false);
+  const [tranactionAction, setTranactionAction] = useState('add')
 
   function addForm() {
+    setTranactionAction('add')
+    setTransaction(defTransaction)
     setAddTransactionVisible(true);
   }
 
@@ -24,9 +39,9 @@ export default function Home({ }: Props) {
         Add Transaction
       </button>
 
-      {isAddTransactionVisible && <AddTransaction setAddTransactionVisible={setAddTransactionVisible}></AddTransaction>}
+      {isAddTransactionVisible && <AddTransaction transactionAction={tranactionAction} transaction={transaction} setAddTransactionVisible={setAddTransactionVisible}></AddTransaction>}
 
-      <TranactionList></TranactionList>
+      <TranactionList setAddTransactionVisible={setAddTransactionVisible} setTranactionAction={setTranactionAction} setTransaction={setTransaction}></TranactionList>
       <ExpensesByCategory></ExpensesByCategory>
     </div>
   )

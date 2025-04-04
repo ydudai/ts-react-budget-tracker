@@ -1,11 +1,30 @@
+import { useState } from 'react'
 import { Transaction } from '../types/Transaction'
+import { TransactionType } from '../types/TransactionType'
+import AddTransaction from './AddTransaction'
 
 type Props = {
-    transaction: Transaction
+    setTranactionAction: Function
+    transaction: Transaction,
+    setAddTransactionVisible: Function,
+    setTransaction: Function
 }
 
 
-export default function TransactionComponent({ transaction }: Props) {
+    setTransaction: Function
+export default function TransactionComponent({ setTranactionAction, transaction, setAddTransactionVisible, setTransaction }: Props) {
+   
+    const setTranactionActiontion = setTranactionAction
+    const setAddTransactionComp = setAddTransactionVisible;
+        
+    function update() {
+        const thisTransaction = transaction
+        console.log(thisTransaction)
+        setTransaction(transaction)
+        setTranactionActiontion("edit")
+        setAddTransactionComp(true);
+    }
+
     return (
         <div
             // key={transaction.id}
@@ -21,7 +40,7 @@ export default function TransactionComponent({ transaction }: Props) {
                     ₪{transaction.price}
                 </span>
                 <div className="flex space-x-2">
-                    <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors">
+                    <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors" onClick={update}>
                         Edit
                     </button>
                     <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors">
@@ -32,3 +51,4 @@ export default function TransactionComponent({ transaction }: Props) {
         </div>
     )
 }
+
